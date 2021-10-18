@@ -1,7 +1,8 @@
 @extends("layouts.layout")
 @section("content")
-            <div class="col-8">
-                <h1>INDEX</h1>
-            </div>
+        <h1>Index</h1>
+@endsection
+@section("sidebar")
+    <input type="button" name="newBlog" value="Add new blog">
 @endsection
 

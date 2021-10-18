@@ -6,14 +6,21 @@ class Request
 {
     private $data = [];
 
-    public function __get($val)
+    public function __get($name)
     {
-        if ($_SERVER['REQUEST_METHOD'] == "GET") {
-            return $this->data[$_GET[$val]];
-        } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
-            return $this->data[$_POST[$val]];
+        if (array_key_exists($name, $this->data)) {
+            return $this->data[$name];
         }
         return null;
     }
 
+    public function __set($name,$value)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            $this->data[$name] = $_GET[$value];
+        } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $this->data[$name] = $_POST[$value];
+        }
+        return null;
+    }
 }

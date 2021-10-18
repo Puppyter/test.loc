@@ -1,7 +1,8 @@
 <?php $__env->startSection("content"); ?>
-            <div class="col-8">
-                <h1>INDEX</h1>
-            </div>
+        <h1>Index</h1>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection("sidebar"); ?>
+    <input type="button" name="newBlog" value="Add new blog">
 <?php $__env->stopSection(); ?>
 
 
