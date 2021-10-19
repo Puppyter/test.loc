@@ -14,7 +14,7 @@ class Request
         return null;
     }
 
-    public function __set($name,$value)
+    public function __set($name, $value)
     {
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $this->data[$name] = $_GET[$value];

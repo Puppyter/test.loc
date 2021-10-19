@@ -9,29 +9,23 @@ class EditBlogModel
     private $csv = null;
     private $id = 0;
     private $csvName = "./DB/blogs.csv";
+
     public function blogPost($data)
     {
         $csv = new CsvManipulator();
         $newData = array_merge(array($this->getID()), $data);
-        $csv->addToCsv($this->csvName,$newData);
+        $csv->addToCsv($this->csvName, $newData);
     }
+
     private function getID()
     {
         $csv = new CsvManipulator();
         $arrCsv = $csv->csvToArrray($this->csvName);
-        if (empty($arrCsv))
-        {
+        if (empty($arrCsv)) {
             return $this->id;
         }
 
         $lastInArr = $arrCsv[array_key_last($arrCsv)];
         return $lastInArr[0] + 1;
-    }
-    private function callCsv()
-    {
-        if ($this->csv === null) {
-            return $this->csv = new CsvManipulator();
-        }
-        return null;
     }
 }
