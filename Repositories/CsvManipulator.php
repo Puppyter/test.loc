@@ -6,9 +6,7 @@ class CsvManipulator
 {
     public function addToCsv($filename,$data)
     {
-        var_dump($data);
         $db = fopen($filename, 'a+');
-        var_dump($db);
         fputcsv($db, $data, ';');
         fclose($db);
     }
