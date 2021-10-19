@@ -10,6 +10,6 @@ class IndexController
     public function index()
     {
         $br = new BladeRender();
-        echo $br->rend('index');
+        echo $br->render('index');
     }
 }

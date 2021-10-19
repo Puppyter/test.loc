@@ -10,6 +10,6 @@ class NotFoundController
     public function notFound()
     {
         $br = new BladeRender();
-        echo $br->rend('404');
+        echo $br->render('404');
     }
 }

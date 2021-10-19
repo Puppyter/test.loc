@@ -4,7 +4,7 @@ namespace Models;
 
 use Repositories\CsvManipulator;
 
-class EditBlogModel
+class NewBlogModel
 {
     private $csv = null;
     private $id = 0;
@@ -24,7 +24,6 @@ class EditBlogModel
         if (empty($arrCsv)) {
             return $this->id;
         }
-
         $lastInArr = $arrCsv[array_key_last($arrCsv)];
         return $lastInArr[0] + 1;
     }

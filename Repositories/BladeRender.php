@@ -7,7 +7,7 @@ use Jenssegers\Blade\Blade;
 class BladeRender
 {
     public $inst = null;
-  public function rend($view)
+  public function render($view)
   {
 
       if ($this->inst === null)
