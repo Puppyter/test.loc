@@ -17,7 +17,7 @@ class Router
         ],
         [
             "name" => "blog",
-            "route" => "/blog",
+            "route" => "/blog/edit",
             "controller" => [EditBlogController::class, 'blog']
         ]
     ];

@@ -6,8 +6,7 @@
         "psr-4": {
             "Repositories\\": "Repositories/",
             "Controllers\\": "Controllers/",
-            "Models\\": "Models/",
-            "DB\\": "DB/"
+            "Models\\": "Models/"
         }
     }
 }

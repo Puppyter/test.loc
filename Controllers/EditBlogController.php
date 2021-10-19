@@ -16,6 +16,7 @@ class EditBlogController
         $req->blog = "blog";
         $req->blogname = "blogname";
         $bm = new EditBlogModel();
-        $bm->blogPost(array($req->blogname,$req->blog));
+        $array = [$req->blogname, $req->blog];
+        $bm->blogPost($array);
     }
 }

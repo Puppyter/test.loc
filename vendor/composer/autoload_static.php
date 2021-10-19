@@ -38,6 +38,10 @@ class ComposerStaticInit118c011c3f6eb0ee9bc3212261e03917
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Container\\' => 14,
         ),
+        'M' => 
+        array (
+            'Models\\' => 7,
+        ),
         'J' => 
         array (
             'Jenssegers\\Blade\\' => 17,
@@ -100,6 +104,10 @@ class ComposerStaticInit118c011c3f6eb0ee9bc3212261e03917
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Models',
         ),
         'Jenssegers\\Blade\\' => 
         array (

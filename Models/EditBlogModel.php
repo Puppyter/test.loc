@@ -1,32 +1,37 @@
 <?php
+
 namespace Models;
 
 use Repositories\CsvManipulator;
 
 class EditBlogModel
 {
+    private $csv = null;
     private $id = 0;
-    private $csvName = 'DB/blogs.cvs';
+    private $csvName = "./DB/blogs.csv";
     public function blogPost($data)
     {
-        $csv = $this->callCsv();
-        $newData = array_merge(array("id"=>$this->getID()), $data);
-        var_dump($newData);
-        $csv->addToCsv($newData, $this->csvName);
+        $csv = new CsvManipulator();
+        $newData = array_merge(array($this->getID()), $data);
+        $csv->addToCsv($this->csvName,$newData);
     }
     private function getID()
     {
-        $csv = $this->callCsv();
+        $csv = new CsvManipulator();
         $arrCsv = $csv->csvToArrray($this->csvName);
-        if (!empty($arrCsv))
+        if (empty($arrCsv))
         {
-        $lastInArr = $arrCsv[array_key_last($arrCsv)];
-            return $lastInArr[0] + 1;
+            return $this->id;
         }
-        return $this->id;
+
+        $lastInArr = $arrCsv[array_key_last($arrCsv)];
+        return $lastInArr[0] + 1;
     }
     private function callCsv()
     {
-        return new CsvManipulator();
+        if ($this->csv === null) {
+            return $this->csv = new CsvManipulator();
+        }
+        return null;
     }
 }
