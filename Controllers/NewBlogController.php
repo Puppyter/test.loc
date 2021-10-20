@@ -10,13 +10,13 @@ class NewBlogController
 {
     public function newBlog()
     {
-        $req = new Request();
-        $req->blog = "blog";
-        $req->blogname = "blogname";
-        $bm = new NewBlogModel();
-        $array = ["blogname"=>$req->blogname, "blog"=>$req->blog];
-        $bm->blogPost($array);
-        $br = new BladeRender();
-        echo $br->render('newBlog');
+        $request = new Request();
+        $request->blog = "blog";
+        $request->blogname = "blogname";
+        $blogModel = new NewBlogModel();
+        $array = ["blogname"=>$request->blogname, "blog"=>$request->blog];
+        $blogModel->blogPost($array);
+        $bladeRender = new BladeRender();
+        echo $bladeRender->render('newBlog');
     }
 }

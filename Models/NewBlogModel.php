@@ -16,7 +16,6 @@ class NewBlogModel
         $newData = array_merge(array($this->getID()), $data);
         $csv->addToCsv($this->csvName, $newData);
     }
-
     private function getID()
     {
         $csv = new CsvManipulator();

@@ -2,6 +2,8 @@
 
 namespace Repositories;
 
+use Controllers\BlogController;
+use Controllers\EditBlogController;
 use Controllers\NewBlogController;
 use Controllers\IndexController;
 use Controllers\NotFoundController;
@@ -16,9 +18,19 @@ class Router
             "controller" => [IndexController::class, 'index']
         ],
         [
-            "name" => "blog",
-            "route" => "/blog/edit",
+            "name" => "newBlog",
+            "route" => "/blog/new",
             "controller" => [NewBlogController::class, 'newBlog']
+        ],
+        [
+            "name" => "blog",
+            "route" => "/blog",
+            "controller" => [BlogController::class, 'blog']
+        ],
+        [
+            "name" => "editBlog",
+            "route" => "/blog/edit",
+            "controller" => [EditBlogController::class, 'editBlog']
         ]
     ];
 

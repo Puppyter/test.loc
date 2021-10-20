@@ -6,12 +6,12 @@ class CsvManipulator
 {
     public function addToCsv($filename, $data)
     {
+        $newData = null;
         foreach ($data as $value)
         {
-         $val = preg_replace('/\s/', '<br>', $value);
-         $newData[] = $val;
+            $newString = preg_replace("/\r\n/i","<br>",$value);
+            $newData[] = $newString;
         }
-        var_dump($newData);
         $db = fopen($filename, 'a+');
         fputcsv($db, $newData, ';');
         fclose($db);
