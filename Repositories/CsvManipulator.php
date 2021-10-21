@@ -4,7 +4,7 @@ namespace Repositories;
 
 class CsvManipulator
 {
-    public function addToCsv($filename, $data)
+    public static function addToCsv($filename, $data)
     {
         $newData = null;
         foreach ($data as $value)
@@ -17,7 +17,7 @@ class CsvManipulator
         fclose($db);
     }
 
-    public function csvToArrray($filename)
+    public static function csvToArrray($filename)
     {
         $arrCsv =null;
         $arrOfCsvString = array_map('str_getcsv', file($filename));
@@ -27,6 +27,17 @@ class CsvManipulator
            $arrCsv[] = $csv;
         }
         return $arrCsv;
+    }
+    public static function deleteData($filename,$id){
+        $data =self::csvToArrray($filename);
+        foreach ($data as $value)
+        {
+            if ($value[0] == $id)
+            {
+                unset($data[$value]);
+            }
+        }
+        self::addToCsv($filename,$data);
     }
 
 }

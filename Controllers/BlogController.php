@@ -12,10 +12,8 @@ class BlogController
     {
         $request = new Request();
         $bladeRender = new BladeRender();
-        $blogModel = new BlogModel();
-        $request->id ="id";
-        $id =$request->id;
-        $data = $blogModel->getCsv($id);
+        $blogModel = new BlogModel($request->id ="id");
+        $data = $blogModel->data;
         echo $bladeRender->render("blog",$data);
     }
 }

@@ -2,28 +2,22 @@
 
 namespace Models;
 
-use Repositories\CsvManipulator;
+use Repositories\BlogRepository;
 
 class NewBlogModel
 {
-    private $csv = null;
-    private $id = 0;
-    private $csvName = "./DB/blogs.csv";
+    public $blogName;
+    public $blog;
 
-    public function blogPost($data)
+    public function __construct($blogName,$blog)
     {
-        $csv = new CsvManipulator();
-        $newData = array_merge(array($this->getID()), $data);
-        $csv->addToCsv($this->csvName, $newData);
+        $this->blogName=$blogName;
+        $this->blog = $blog;
     }
-    private function getID()
+
+    public function dataPush()
     {
-        $csv = new CsvManipulator();
-        $arrCsv = $csv->csvToArrray($this->csvName);
-        if (empty($arrCsv)) {
-            return $this->id;
-        }
-        $lastInArr = $arrCsv[array_key_last($arrCsv)];
-        return $lastInArr[0] + 1;
+
     }
+
 }

@@ -2,9 +2,10 @@
 
 namespace Controllers;
 
+use Repositories\BlogRepository;
+use Repositories\Request;
 use Models\EditBlogModel;
 use Repositories\BladeRender;
-use Repositories\Request;
 
 class EditBlogController
 {
@@ -12,10 +13,9 @@ class EditBlogController
     {
       $request =new Request();
       $bladeRender = new BladeRender();
-      $editBlogModel = new EditBlogModel();
-      $request->id ="id";
-      $id =$request->id;
-      $data = $editBlogModel->getCsv($id);
-      echo $bladeRender->render("editBlog",$data);
+      $editBlogModel = new EditBlogModel(BlogRepository::getById($request->id = "id"));
+      BlogRepository::putInDataBase(BlogRepository::arrayBuilder($editBlogModel->data["blogName"],$editBlogModel->data["blog"], $editBlogModel->data["id"]));
+      echo $bladeRender->render("editBlog",$editBlogModel->data);
+
     }
 }

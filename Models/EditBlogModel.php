@@ -2,22 +2,26 @@
 
 namespace Models;
 
-use Repositories\CsvManipulator;
+
+use Repositories\BlogRepository;
 
 class EditBlogModel
 {
-    private $newArrCsv = null;
-    private $csvName = "./DB/blogs.csv";
-    public function getCsv($id)
+    public $data=[];
+    public function __construct($data)
     {
-        $csvManipulator = new CsvManipulator();
-        $arrCsv = $csvManipulator->csvToArrray($this->csvName);
-        foreach ($arrCsv as $value) {
-            if ($value[0] == $id)
-            {
-                $this->newArrCsv[] = ["blogname" => $value[1], "blog" => $value[2]];
-            }
+        $this->data = $data;
+    }
+    public function __get($name)
+    {
+        if (array_key_exists($name, $this->data)) {
+            return $this->data[$name];
         }
-        return $this->newArrCsv;
+        return null;
+    }
+
+    public function pushData()
+    {
+
     }
 }
