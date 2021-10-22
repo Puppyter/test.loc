@@ -2,8 +2,8 @@
 
 namespace Controllers;
 
-use Models\BlogModel;
 use Repositories\BladeRender;
+use Repositories\BlogRepository;
 use Repositories\Request;
 
 class BlogController
@@ -12,8 +12,7 @@ class BlogController
     {
         $request = new Request();
         $bladeRender = new BladeRender();
-        $blogModel = new BlogModel($request->id ="id");
-        $data = $blogModel->data;
-        echo $bladeRender->render("blog",$data);
+        $blogModel = BlogRepository::getById($request->id = "id");
+        echo $bladeRender->render("blog",$blogModel->data);
     }
 }

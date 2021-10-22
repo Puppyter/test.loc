@@ -2,17 +2,17 @@
 
 namespace Controllers;
 
-use Models\IndexModel;
 use Repositories\BladeRender;
-use Repositories\Request;
+use Repositories\BlogRepository;
 
 class IndexController
 {
     public function index()
     {
-        $indexModel = new IndexModel();
-        $data = $indexModel->getCsv();
+
+        $blogsModels = BlogRepository::blogPages();
+
         $bladeRender = new BladeRender();
-        echo $bladeRender->render('index', $data);
+        echo $bladeRender->render('index', ["data" => $blogsModels->data]);
     }
 }

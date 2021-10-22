@@ -12,9 +12,8 @@ class NewBlogController
     public function newBlog()
     {
         $request = new Request();
-        $blogModel = new NewBlogModel($request->blogName = "blogName", $request->blog = "blog");
-        BlogRepository::putInDataBase(BlogRepository::arrayBuilder($this->blogName,$this->blog));
         $bladeRender = new BladeRender();
+        BlogRepository::putInDataBase(["blogName" =>$request->blogName='blogName', "blog"=>$request->blog='blog']);
         echo $bladeRender->render('newBlog');
     }
 }

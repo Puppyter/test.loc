@@ -2,15 +2,13 @@
 
 namespace Models;
 
-use Repositories\BlogRepository;
-
 class BlogModel
 {
     public $data = [];
 
-    public function __construct($id)
+    public function __construct($data)
     {
-       $this->data = BlogRepository::getById($id);
+       $this->data = $data;
     }
 
     public function __get($name)
