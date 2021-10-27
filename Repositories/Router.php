@@ -4,9 +4,11 @@ namespace Repositories;
 
 use Controllers\BlogController;
 use Controllers\EditBlogController;
-use Controllers\NewBlogController;
 use Controllers\IndexController;
+use Controllers\NewBlogController;
+use Controllers\NewUserController;
 use Controllers\NotFoundController;
+use Controllers\UserController;
 
 class Router
 {
@@ -18,19 +20,29 @@ class Router
             "controller" => [IndexController::class, 'index']
         ],
         [
-            "name" => "newBlog",
+            "name" => "blogNew",
             "route" => "/blog/new",
             "controller" => [NewBlogController::class, 'newBlog']
         ],
         [
             "name" => "blog",
             "route" => "/blog",
-            "controller" => [BlogController::class, 'blog']
+            "controller" => [BlogController::class, 'blogController']
         ],
         [
-            "name" => "editBlog",
+            "name" => "blogEdit",
             "route" => "/blog/edit",
             "controller" => [EditBlogController::class, 'editBlog']
+        ],
+        [
+            "name" => "newUser",
+            "route" => "/user/new",
+            "controller" => [NewUserController::class, 'newUser']
+        ],
+        [
+            "name" => "user",
+            "route" => "/user",
+            "controller" => [UserController::class, 'user']
         ]
     ];
 
@@ -38,14 +50,9 @@ class Router
     {
         $this->callController($this->urlCleaner($url));
     }
-
-    private function urlCleaner($url): string
+    public function getRoutes()
     {
-        $url = array_filter(explode('/', parse_url($url, PHP_URL_PATH)));
-        if (empty($url)) {
-            return '/';
-        }
-        return "/" . implode('/', $url);
+        return $this->routes;
     }
 
     private function callController($url): void
@@ -59,5 +66,14 @@ class Router
             }
         }
         call_user_func($controller);
+    }
+
+    private function urlCleaner($url): string
+    {
+        $url = array_filter(explode('/', parse_url($url, PHP_URL_PATH)));
+        if (empty($url)) {
+            return '/';
+        }
+        return "/" . implode('/', $url);
     }
 }

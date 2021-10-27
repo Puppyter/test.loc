@@ -7,9 +7,71 @@ use Models\BlogModel;
 
 class BlogRepository
 {
-    private static $blogPageSize = 9;
+    private static $blogPageSize = 11;
     private static $arrCsv = null;
     private static $csvName = "./DB/blogs.csv";
+
+    public static function allPages()
+    {
+        $lastBlogId = self::getBlogCount();
+        $countPages = $lastBlogId / self::$blogPageSize;
+        for($count = 1; $count<$countPages;$count++)
+        {
+            $pages[] = $count;
+        }
+        return $pages;
+    }
+
+    public static function dataInPage($page)
+    {
+        $countRecordingsOut = 0;
+        if ($page == null) {
+            $page = 1;
+        }
+        $arrPages = null;
+        if ($page !=1) {
+            $countRecordingsOut = $page * self::$blogPageSize;
+        }
+        foreach (CsvManipulator::getSomeCsvRecord(self::$csvName, $countRecordingsOut, self::$blogPageSize) as $value) {
+            $arrPages[] = ["id" => $value[0], "blogName" => $value[1], "blog" => $value[2]];
+        }
+        return new BlogModel($arrPages);
+    }
+
+    private static function getBlogCount()
+    {
+            $lastBlog = CsvManipulator::getLastRecordInCsv(self::$csvName);
+            return $lastBlog[0];
+    }
+
+    public static function getCurrentPage($page)
+    {
+        if ($page == null) {
+            return 1;
+        }
+        return $page;
+    }
+
+    public static function getById($id)
+    {
+        $arr = CsvManipulator::getRecordBySomething(self::$csvName,$id);
+        $newArr = ["id"=>$arr[0],"blogName"=>$arr[1],"blog"=>$arr[2]];
+        return new BlogModel($newArr);
+    }
+
+    public static function deleteById($id)
+    {
+        CsvManipulator::deleteData(self::$csvName, $id);
+    }
+
+    public static function putInDataBase($blogName, $blog, $id = null)
+    {
+        if ($id === null) {
+            $id = self::getNextAfterLastId();
+        }
+        $putData = ["id" => $id, "blogName" => $blogName, "blog" => $blog];
+        CsvManipulator::addToCsv(self::$csvName, $putData);
+    }
 
     private static function getNextAfterLastId()
     {
@@ -18,66 +80,5 @@ class BlogRepository
             return $lastId + 1;
         }
         return null;
-    }
-    private static function getBlogCount(){
-        $allBogs = self::getAll()->data;
-        if ($allBogs != null) {
-            $lastBlog = end($allBogs);
-            return $lastBlog["id"];
-        }
-        return null;
-    }
-
-    public static function blogPages(){
-        $arrPages = null;
-        $dataCount =0;
-        $lastBlogId = self::getBlogCount();
-        $data = self::getAll()->data;
-        $countPages = $lastBlogId / self::$blogPageSize;
-        for($count = 1; $count<=$countPages; $count++)
-        {
-            for ($countTwo=0;$countTwo<=self::$blogPageSize;$countTwo++)
-            {
-
-                    $dataInPage[] = $data[$dataCount];
-                    $dataCount++;
-
-            }
-
-            $arrPages[$count] = $dataInPage;
-            $dataInPage = [];
-        }
-        return new BlogModel($arrPages);
-    }
-    public static function  getAll()
-    {
-        foreach (CsvManipulator::csvToArrray(self::$csvName) as $value) {
-            self::$arrCsv[] =  ["id" => $value[0], "blogName" => $value[1], "blog" => $value[2]];
-
-        }
-        return new BlogModel(self::$arrCsv);
-    }
-    public static function getById($id)
-    {
-        foreach (self::getAll() as $value)
-        {
-            if ($value["id"] == $id)
-            {
-                return new BlogModel($value);
-            }
-        }
-        return null;
-    }
-    public static function deleteById($id)
-    {
-        CsvManipulator::deleteData(self::$csvName,$id);
-    }
-    public static function putInDataBase($data)
-    {
-        if ($data["id"] == null)
-        {
-            $data["id"] = self::getNextAfterLastId();
-        }
-        CsvManipulator::addToCsv(self::$csvName,$data);
     }
 }

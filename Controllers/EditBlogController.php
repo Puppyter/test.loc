@@ -12,8 +12,7 @@ class EditBlogController
     {
       $request =new Request();
       $bladeRender = new BladeRender();
-      $blogModel = BlogRepository::getById($request->id = "id");
+      $blogModel = BlogRepository::getById($request->id);
       echo $bladeRender->render("editBlog",$blogModel->data);
-
     }
 }

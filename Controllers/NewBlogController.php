@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use Models\NewBlogModel;
 use Repositories\BladeRender;
 use Repositories\BlogRepository;
 use Repositories\Request;
@@ -13,7 +12,9 @@ class NewBlogController
     {
         $request = new Request();
         $bladeRender = new BladeRender();
-        BlogRepository::putInDataBase(["blogName" =>$request->blogName='blogName', "blog"=>$request->blog='blog']);
         echo $bladeRender->render('newBlog');
+        if ($request->blogName != null && $request->blog != null) {
+            BlogRepository::putInDataBase($request->blogName, $request->blog);
+        }
     }
 }

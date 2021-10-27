@@ -12,7 +12,11 @@ class BlogController
     {
         $request = new Request();
         $bladeRender = new BladeRender();
-        $blogModel = BlogRepository::getById($request->id = "id");
-        echo $bladeRender->render("blog",$blogModel->data);
+        $blogModel = BlogRepository::getById($request->id);
+        if ($blogModel === null)
+        {
+            echo $bladeRender->render("404");
+        }
+        echo $bladeRender->render("blog",["data" => $blogModel->data]);
     }
 }

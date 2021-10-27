@@ -1,13 +1,14 @@
 @extends("layouts.layout")
 @section("content")
-    <form name="newBlog" method="post" action="index.php">
+    <form action="@routeByName(blogNew)" method="post">
         <div class="input-group flex-nowrap">
-            <input type="text" class="form-control" placeholder="Blog name" aria-label="BlogName" aria-describedby="addon-wrapping" name="blogname">
+            <input required type="text" class="form-control" placeholder="Blog name" aria-label="BlogName"
+                   aria-describedby="addon-wrapping" name="blogName">
         </div>
         <div class="input-group">
-            <textarea class="form-control" aria-label="Blog" name="blog"></textarea>
+            <textarea required class="form-control" aria-label="Blog" name="blog"></textarea>
         </div>
-        <input type="submit" name="editing" value="Edit">
+        <input type="submit" name="add" value="Add Blog">
     </form>
 @endsection
 @section("sidebar")
