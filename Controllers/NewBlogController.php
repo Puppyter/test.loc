@@ -14,7 +14,7 @@ class NewBlogController
         $bladeRender = new BladeRender();
         echo $bladeRender->render('newBlog');
         if ($request->blogName != null && $request->blog != null) {
-            BlogRepository::putInDataBase($request->blogName, $request->blog);
+            BlogRepository::putInDataBase($request->blogName, $request->blog, date("d F Y"));
         }
     }
 }

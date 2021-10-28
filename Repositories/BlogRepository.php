@@ -33,7 +33,7 @@ class BlogRepository
             $countRecordingsOut = $page * self::$blogPageSize;
         }
         foreach (CsvManipulator::getSomeCsvRecord(self::$csvName, $countRecordingsOut, self::$blogPageSize) as $value) {
-            $arrPages[] = ["id" => $value[0], "blogName" => $value[1], "blog" => $value[2]];
+            $arrPages[] = ["id" => $value[0], "blogName" => $value[1], "blog" => $value[2], "date"=>$value[3]];
         }
         return new BlogModel($arrPages);
     }
@@ -59,17 +59,30 @@ class BlogRepository
         return new BlogModel($newArr);
     }
 
-    public static function deleteById($id)
+    public static function editBlog(array $data)
     {
-        CsvManipulator::deleteData(self::$csvName, $id);
+        if ($data != null) {
+            CsvManipulator::editData(self::$csvName, $data);
+            return true;
+        }
+        return false;
     }
 
-    public static function putInDataBase($blogName, $blog, $id = null)
+    public static function deleteById($id)
+    {
+        if ($id != null) {
+            CsvManipulator::deleteData(self::$csvName, $id);
+            return true;
+        }
+        return false;
+    }
+
+    public static function putInDataBase($blogName, $blog, $date = null, $id = null)
     {
         if ($id === null) {
             $id = self::getNextAfterLastId();
         }
-        $putData = ["id" => $id, "blogName" => $blogName, "blog" => $blog];
+        $putData = ["id" => $id, "blogName" => $blogName, "blog" => $blog, "date"=>$date];
         CsvManipulator::addToCsv(self::$csvName, $putData);
     }
 

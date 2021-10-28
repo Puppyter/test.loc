@@ -11,9 +11,9 @@ class IndexController
     public function index()
     {
         $request = new Request();
-        $blogsModels = BlogRepository::dataInPage($request->page);
         $currentPage = BlogRepository::getCurrentPage($request->page);
+        $blogsModels = BlogRepository::dataInPage($currentPage);
         $bladeRender = new BladeRender();
-        echo $bladeRender->render('index', ["data" => $blogsModels->data, "currentPage" => $currentPage, "pages"=>BlogRepository::allPages()]);
+        echo $bladeRender->render('index', ["data" => $blogsModels->data, "currentPage" => $request->page, "pages"=>BlogRepository::allPages()]);
     }
 }

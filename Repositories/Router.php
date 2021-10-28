@@ -2,6 +2,7 @@
 
 namespace Repositories;
 
+use Controllers\AuthorizationController;
 use Controllers\BlogController;
 use Controllers\EditBlogController;
 use Controllers\IndexController;
@@ -35,7 +36,7 @@ class Router
             "controller" => [EditBlogController::class, 'editBlog']
         ],
         [
-            "name" => "newUser",
+            "name" => "registration",
             "route" => "/user/new",
             "controller" => [NewUserController::class, 'newUser']
         ],
@@ -43,6 +44,11 @@ class Router
             "name" => "user",
             "route" => "/user",
             "controller" => [UserController::class, 'user']
+        ],
+        [
+            "name" => "authorization",
+            "route"=>"/user/login",
+            "controller" => [AuthorizationController::class, 'authorization']
         ]
     ];
 

@@ -6,7 +6,7 @@
                    aria-describedby="addon-wrapping" name="blogName">
         </div>
         <div class="input-group">
-            <textarea required class="form-control" aria-label="Blog" name="blog"></textarea>
+            <textarea required class="form-control" style="width: auto" aria-label="Blog" name="blog"></textarea>
         </div>
         <input type="submit" name="add" value="Add Blog">
     </form>

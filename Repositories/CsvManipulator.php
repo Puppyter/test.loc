@@ -34,12 +34,13 @@ class CsvManipulator
             {
                 fputcsv($fileTmp,$data,";");
             }
-            fputcsv($fileTmp,$line,";");
+            else{fputcsv($fileTmp,$line,";");}
         }
         if (rename($tmpFile,$filename)) {
             fclose($file);
             unlink($file);
         }
+        fclose($fileTmp);
     }
     public static function getLastRecordInCsv($filename)
     {
